@@ -175,20 +175,29 @@
         </div>
         <div class="row justify-content-center">
           <div class="col-6">
-            <form>
+            <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert">
+              <strong>Terima kasih</strong> pesan anda sudah kami terima
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <form name="komentar">
               <div class="mb-3" data-aos="fade-right" data-aos-delay="50" data-aos-duration="1000">
                 <label for="name" class="form-label">Nama</label>
-                <input type="nama" class="form-control" id="nama" aria-describedby="emailHelp" />
+                <input type="nama" class="form-control" id="nama" aria-describedby="emailHelp" name="nama" />
               </div>
               <div class="mb-3" data-aos="fade-left" data-aos-delay="50" data-aos-duration="1000">
                 <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" />
+                <input type="email" class="form-control" id="email" name="email" />
               </div>
               <div class="mb-3" data-aos="fade-right" data-aos-delay="50" data-aos-duration="1000">
                 <label for="pesan" class="form-label">Pesan</label>
-                <textarea class="form-control" id="pesan" rows="3"></textarea>
+                <textarea class="form-control" id="pesan" rows="3" name="pesan"></textarea>
               </div>
-              <button type="submit" class="btn btn-success" data-aos="fade-up" data-aos-duration="1000">Kirim</button>
+              <button type="submit" class="btn btn-primary btn-kirim" data-aos="fade-up" data-aos-duration="1000">Kirim</button>
+
+              <button class="btn btn-primary btn-loading d-none" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+              </button>
             </form>
           </div>
         </div>
@@ -222,6 +231,33 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
       AOS.init();
+    </script>
+    <script>
+      const scriptURL = "https://script.google.com/macros/s/AKfycbwEbBRQ7F5_zLvnTJ-LUjw4vXJDKDCB9RjXU8x3bIoJ5ur_6yqVPgiIB2fZSYnoFsxN/exec";
+      const form = document.forms["komentar"];
+      const btnKirim = document.querySelector(".btn-kirim");
+      const btnLoading = document.querySelector(".btn-loading");
+      const myAlert = document.querySelector(".my-alert");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        // ketika tombol di klik
+        // tampilkan tombol loading, hilangkan tombol kirim
+        btnLoading.classList.toggle("d-none");
+        btnKirim.classList.toggle("d-none");
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            // tampilkan tombol kirim, hilangkan tombol loading
+            btnLoading.classList.toggle("d-none");
+            btnKirim.classList.toggle("d-none");
+            console.log("Success!", response);
+            // hapus
+            form.reset();
+            // tampilkan alert
+            myAlert.classList.toggle("d-none");
+          })
+          .catch((error) => console.error("Error!", error.message));
+      });
     </script>
   </body>
 </html>
