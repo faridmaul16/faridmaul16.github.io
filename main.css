@@ -1,11 +1,25 @@
 .jumbotron {
   padding-top: 6rem;
-  background-color: #c0e3e5;
+  background-color: #ffff;
 }
 
 #project {
-  background-color: #c0e3e5;
+  background-color: #ffff;
 }
 section {
   padding-top: 5rem;
+}
+.about {
+  background-color: #2c876f;
+}
+.komentar {
+  background-color: #2c876f;
+}
+.navbar-brand {
+  font-family: sans-serif;
+  font-size: 20px;
+}
+.navbar-nav {
+  font-family: serif;
+  font-size: 15px;
 }
