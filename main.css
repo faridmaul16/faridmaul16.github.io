@@ -3,14 +3,17 @@
   background-color: #ffff;
 }
 
-#project {
+.project {
   background-color: #ffff;
+  font-family: serif;
 }
+
 section {
   padding-top: 5rem;
 }
 .about {
   background-color: #2c876f;
+  font-family: serif;
 }
 .komentar {
   background-color: #2c876f;
